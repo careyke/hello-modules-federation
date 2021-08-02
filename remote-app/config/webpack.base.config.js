@@ -8,10 +8,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 // https://github.com/mzgoddard/hard-source-webpack-plugin/issues/514
 // const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
+const { ModuleFederationPlugin } = webpack.container;
 
 const SRC_PATH = path.resolve(__dirname, "../src");
 const NODE_MODULE_PATH = path.resolve(__dirname, "../node_modules");
-const BUILD_PATH = path.resolve(__dirname, "../dist");
+// const BUILD_PATH = path.resolve(__dirname, "../dist");
+const BUILD_PATH = path.resolve(__dirname, "../noEager");
 const isDev = process.env.NODE_ENV === "development";
 
 const jsName = isDev ? "js/[name].js" : "js/[name]_[chunkhash:8].js";
@@ -58,6 +60,26 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV), // 不明白为啥使用JSON.stringify
+      },
+    }),
+    new ModuleFederationPlugin({
+      name: "remoteApp",
+      library: { type: "umd", name: "remoteApp" },
+      filename: "js/remoteApp.js",
+      exposes: {
+        "./Button": path.resolve(SRC_PATH, "Button.tsx"),
+      },
+      shared: {
+        react: {
+          // eager: true,
+          import: "react",
+          // singleton: true,
+        },
+        "react-dom": {
+          // eager: true,
+          import: "react-dom",
+          // singleton: true,
+        },
       },
     }),
   ],

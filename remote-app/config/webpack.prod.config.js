@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
   devtool: "source-map",
   plugins: plugins,
   output: {
-    publicPath: "/",
+    publicPath: "http://localhost:8000/",
   },
   cache: true,
   stats: false, // 清除多余日志

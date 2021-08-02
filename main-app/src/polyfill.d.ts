@@ -22,3 +22,8 @@ declare module "*.css" {
   const styles: { [className: string]: string };
   export default styles;
 }
+
+declare module "remoteApp/Button" {
+  const content: any;
+  export default content;
+}

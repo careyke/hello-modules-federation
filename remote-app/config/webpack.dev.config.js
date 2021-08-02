@@ -12,14 +12,14 @@ module.exports = merge(baseConfig, {
   mode: "development",
   devtool: "eval-cheap-module-source-map",
   output: {
-    publicPath: "/",
+    publicPath: "http://localhost:8001/",
   },
   cache: true,
   stats: false, // 清除多余日志
   plugins: [
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
-        messages: ["You application is running here http://localhost:8000"],
+        messages: ["You application is running here http://localhost:8001"],
       },
     }),
     // new CopyWebpackPlugin({
@@ -38,7 +38,7 @@ module.exports = merge(baseConfig, {
   // https://github.com/webpack/webpack-dev-server/blob/08a83a65f5c500a648c12faa2fa03122ee380c8b/CHANGELOG.md
   devServer: {
     static: path.join(__dirname, "../dist"),
-    port: 8000,
+    port: 8001,
     compress: true,
     hot: true,
     open: ["index.html"],

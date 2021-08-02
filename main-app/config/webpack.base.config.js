@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 // https://github.com/mzgoddard/hard-source-webpack-plugin/issues/514
 // const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
+const { ModuleFederationPlugin } = webpack.container;
 
 const SRC_PATH = path.resolve(__dirname, "../src");
 const NODE_MODULE_PATH = path.resolve(__dirname, "../node_modules");
@@ -58,6 +59,22 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV), // 不明白为啥使用JSON.stringify
+      },
+    }),
+    new ModuleFederationPlugin({
+      name: "mainApp",
+      remotes: {
+        remoteApp: "remoteApp@http://localhost:8001/js/remoteApp.js",
+      },
+      shared: {
+        react: {
+          eager: true,
+          // import: "react",
+        },
+        "react-dom": {
+          eager: true,
+          // import: "react-dom",
+        },
       },
     }),
   ],
