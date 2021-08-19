@@ -23,7 +23,12 @@ declare module "*.css" {
   export default styles;
 }
 
-declare module "remoteApp/Button" {
+declare module "remoteApp/math" {
+  const content: any;
+  export default content;
+}
+
+declare module "add" {
   const content: any;
   export default content;
 }

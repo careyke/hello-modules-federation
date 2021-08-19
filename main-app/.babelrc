@@ -1,14 +1,14 @@
 {
   "presets": [
-    [
-      "@babel/env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": "3.8.3"
-      }
-    ],
-    "@babel/react",
-    "@babel/typescript"
+    //   [
+    //     "@babel/env",
+    //     {
+    //       "useBuiltIns": "usage",
+    //       "corejs": "3.8.3"
+    //     }
+    //   ],
+    //   "@babel/react",
+    //   "@babel/typescript"
   ],
   "plugins": [
     "react-hot-loader/babel",

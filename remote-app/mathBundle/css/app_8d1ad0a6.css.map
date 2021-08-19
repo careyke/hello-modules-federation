@@ -1,0 +1,1 @@
+{"version":3,"file":"css/app_8d1ad0a6.css","mappings":"AAAA;EACE;EACA;EACA;EACA;AACF","sources":["webpack://remote-app/./src/App.less"],"sourcesContent":[".container {\n  display: flex;\n  flex-direction: column;\n  font-size: 30px;\n  color: coral;\n}\n"],"names":[],"sourceRoot":""}

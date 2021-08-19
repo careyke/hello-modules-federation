@@ -12,7 +12,7 @@ const { ModuleFederationPlugin } = webpack.container;
 
 const SRC_PATH = path.resolve(__dirname, "../src");
 const NODE_MODULE_PATH = path.resolve(__dirname, "../node_modules");
-const BUILD_PATH = path.resolve(__dirname, "../dist");
+const BUILD_PATH = path.resolve(__dirname, "../mainAppMath");
 const isDev = process.env.NODE_ENV === "development";
 
 const jsName = isDev ? "js/[name].js" : "js/[name]_[chunkhash:8].js";
@@ -22,7 +22,7 @@ const cssClassName = "[name]_[local]_[contenthash:4]";
 module.exports = {
   target: "web",
   entry: {
-    app: path.resolve(SRC_PATH, "index.tsx"),
+    app: path.resolve(SRC_PATH, "index.js"),
   },
   output: {
     filename: jsName,
@@ -67,13 +67,10 @@ module.exports = {
         remoteApp: "remoteApp@http://localhost:8001/js/remoteApp.js",
       },
       shared: {
-        react: {
+        add: {
+          import: "add",
           eager: true,
-          // import: "react",
-        },
-        "react-dom": {
-          eager: true,
-          // import: "react-dom",
+          singleton: true,
         },
       },
     }),

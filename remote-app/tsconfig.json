@@ -5,6 +5,7 @@
     "isolatedModules": true,
     "strict": true,
     "baseUrl": "./",
+    "outDir": "./build",
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],

@@ -12,8 +12,8 @@ const { ModuleFederationPlugin } = webpack.container;
 
 const SRC_PATH = path.resolve(__dirname, "../src");
 const NODE_MODULE_PATH = path.resolve(__dirname, "../node_modules");
-// const BUILD_PATH = path.resolve(__dirname, "../dist");
-const BUILD_PATH = path.resolve(__dirname, "../noEager");
+const BUILD_PATH = path.resolve(__dirname, "../dist");
+// const BUILD_PATH = path.resolve(__dirname, "../mathBundle");
 const isDev = process.env.NODE_ENV === "development";
 
 const jsName = isDev ? "js/[name].js" : "js/[name]_[chunkhash:8].js";
@@ -67,18 +67,23 @@ module.exports = {
       library: { type: "umd", name: "remoteApp" },
       filename: "js/remoteApp.js",
       exposes: {
-        "./Button": path.resolve(SRC_PATH, "Button.tsx"),
+        "./math": path.resolve(SRC_PATH, "math.js"),
       },
       shared: {
-        react: {
+        // react: {
+        //   // eager: true,
+        //   import: "react",
+        //   // singleton: true,
+        // },
+        // "react-dom": {
+        //   // eager: true,
+        //   import: "react-dom",
+        //   // singleton: true,
+        // },
+        add: {
           // eager: true,
-          import: "react",
-          // singleton: true,
-        },
-        "react-dom": {
-          // eager: true,
-          import: "react-dom",
-          // singleton: true,
+          import: "add",
+          singleton: true,
         },
       },
     }),

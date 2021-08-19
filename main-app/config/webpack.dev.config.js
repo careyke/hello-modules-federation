@@ -1,6 +1,6 @@
 const path = require("path");
 const { merge } = require("webpack-merge");
-const webpack = require("webpack");
+// const webpack = require("webpack");
 
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 // const HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
@@ -10,7 +10,7 @@ const baseConfig = require("./webpack.base.config");
 
 module.exports = merge(baseConfig, {
   mode: "development",
-  devtool: "eval-cheap-module-source-map",
+  devtool: "source-map",
   output: {
     publicPath: "/",
   },
@@ -32,7 +32,7 @@ module.exports = merge(baseConfig, {
     //   tags: ["css/font-awesome.css"],
     //   append: false,
     // }),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
   ],
   // webpack-dev-server4之后配置有修改：changelog
   // https://github.com/webpack/webpack-dev-server/blob/08a83a65f5c500a648c12faa2fa03122ee380c8b/CHANGELOG.md
@@ -40,7 +40,7 @@ module.exports = merge(baseConfig, {
     static: path.join(__dirname, "../dist"),
     port: 8000,
     compress: true,
-    hot: true,
+    hot: false,
     open: ["index.html"],
     // openPage: "index.html", // webpack-dev-server4之后被移除，使用open统一配置
     // publicPath: "/", // webpack-dev-server4之后被移到了static中
