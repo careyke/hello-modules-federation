@@ -505,7 +505,7 @@
       ],
     };
     /**
-     * 请求远程应用的入口文件 remoteApp.js
+     * 请求远程应用中需要使用的模块
      * @param {*} chunkId
      * @param {*} promises
      */
@@ -528,6 +528,19 @@
             };
             data.p = 0;
           };
+          /**
+           * 串行获取remoteApp的对应模块
+           * 1. 加载remoteApp的入口文件remoteEntry.js
+           * 2. 获取之后，执行shared模块的初始化操作
+           * 3. 获取remoteApp中对应的模块
+           * @param {*} fn
+           * @param {*} arg1
+           * @param {*} arg2
+           * @param {*} d
+           * @param {*} next
+           * @param {*} first
+           * @returns
+           */
           var handleFunction = (fn, arg1, arg2, d, next, first) => {
             try {
               var promise = fn(arg1, arg2);
@@ -991,6 +1004,11 @@
         "webpack/sharing/consume/default/add/add",
       ],
     };
+    /**
+     * 定义共享模块的获取方法
+     * @param {*} chunkId
+     * @param {*} promises
+     */
     __webpack_require__.f.consumes = (chunkId, promises) => {
       if (__webpack_require__.o(chunkMapping, chunkId)) {
         chunkMapping[chunkId].forEach((id) => {
@@ -998,6 +1016,7 @@
             return promises.push(installedModules[id]);
           var onFactory = (factory) => {
             installedModules[id] = 0;
+            // __webpack_require__.m就是__webpack_modules__，保存模块的获取方法
             __webpack_require__.m[id] = (module) => {
               delete __webpack_require__.c[id];
               module.exports = factory();
@@ -1107,6 +1126,12 @@
     // no on chunks loaded
 
     // install a JSONP callback for chunk loading
+    /**
+     * jsonp回来的代码会执行webpackJsonpCallback方法
+     * 方法里面执行resolve方法
+     * @param {*} parentChunkLoadingFunction
+     * @param {*} data
+     */
     var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
       var [chunkIds, moreModules, runtime] = data;
       // add "moreModules" to the modules object,

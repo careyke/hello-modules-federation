@@ -24,6 +24,12 @@
                 );
             },
           };
+          /**
+           * 通过remote entry文件来获取真正的模块代码
+           * @param {*} module
+           * @param {*} getScope
+           * @returns
+           */
           var get = (module, getScope) => {
             __webpack_require__.R = getScope;
             getScope = __webpack_require__.o(moduleMap, module)
@@ -36,6 +42,16 @@
             __webpack_require__.R = undefined;
             return getScope;
           };
+          /**
+           * 远程模块初始化
+           * mainApp会将共享的模块信息传给remoteApp
+           * 来达到共享的目的
+           * mainApp 和 remoteApp 是相互隔离的，各自有各自的模块系统
+           * 只有在初始化的时候有数据交流
+           * @param {*} shareScope
+           * @param {*} initScope
+           * @returns
+           */
           var init = (shareScope, initScope) => {
             if (!__webpack_require__.S) return;
             var oldScope = __webpack_require__.S["default"];
@@ -701,6 +717,10 @@
       );
       var loadStrictVersionCheckFallback = /*#__PURE__*/ init(
         (scopeName, scope, key, version, fallback) => {
+          // 对应共享模块
+          // 这里scope就是mainApp传过来的共享模块的信息
+          // 这里获取的时候相当于是从mainApp的模块系统中获取
+
           var entry =
             scope &&
             __webpack_require__.o(scope, key) &&
